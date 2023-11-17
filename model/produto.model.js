@@ -1,8 +1,8 @@
 import { DataTypes } from "sequelize";
 
 // cria uma tabela de produtos
-const produtoModel = (sequelize, Sequelize) =>{
-    const Produto = sequelize.define('produto', {
+export const produtoModel = connection =>{
+    const Produto = connection.define('produto', {
         // colunas
         nome: {
           type: DataTypes.STRING,
@@ -12,7 +12,7 @@ const produtoModel = (sequelize, Sequelize) =>{
           type: DataTypes.STRING,
           // allowNull defaults to true
         },
-        descrição: {
+        descricao: {
             type: DataTypes.STRING
             // allowNull defaults to true
         }, 
