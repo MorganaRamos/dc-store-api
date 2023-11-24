@@ -12,17 +12,42 @@ export const produtoController = {
             }
         const {nome, categoria, descricao, desconto, precoAntes, precoDepois, ativo} = req.body
         const produto = {nome, categoria, descricao, desconto, precoAntes, precoDepois, ativo}
+
          Produto.create(produto)
          .then(data =>{
             res.send(data)
          })
-         .catch()   
+         .catch((e) => {
+            res.status(500).send({
+                message: e.message || "ocorreu um erro ao salvar o produto!"
+            })
+         }) 
 
         },
         findAll: (req,res) =>{
-        
+        Produto.findAll()
+        .then(data =>{
+            res.send(data)
+         })
+         .catch((e) => {
+            res.status(500).send({
+                message: e.message || "ocorreu um erro ao ao buscar todos os produto!"
+            })
+         }) 
         },
         findById: (req,res) =>{
+            const id = req.params.id
+            
+            Produto.findByPk(id)
+            .then(data =>{
+                res.send(data)
+             })
+             .catch((e) => {
+                res.status(500).send({
+                 message: e.message || `"ocorreu um erro ao buscar o produto de id: ${id}!`
+                })
+             }) 
+
         
         },
         findByStatus: (req,res) =>{
