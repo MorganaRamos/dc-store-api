@@ -17,3 +17,21 @@ modelo de body:
 }
 
 metodo POST : http://localhost:5000/api/produto
+
+Criar arquivo .env
+Comando -> npm i dotenv
+colocar no arquivo os dados do config
+import no config do arquivo env
+
+inserir no arquivo db o comando em naxio do dialect:
+
+dialectOptions: {
+        ssl: {
+            require: true,
+            rejectUnauthorized: false, // Configuração para evitar o erro "SSL/TLS required"
+        },
+    },
+
+comando -> npm start
+
+

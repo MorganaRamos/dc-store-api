@@ -5,6 +5,12 @@ import { DB_CONFIG } from "./config/config.js";
 export const connection = new Sequelize(DB_CONFIG.db, DB_CONFIG.user, DB_CONFIG.pass, {
     host: DB_CONFIG.host,
     dialect: DB_CONFIG.dialect,
+    dialectOptions: {
+      ssl: {
+          require: true,
+          rejectUnauthorized: false, // Configuração para evitar o erro "SSL/TLS required"
+      },
+  },
     pool:{
         max:5,
         min:0,
