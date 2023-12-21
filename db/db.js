@@ -2,15 +2,29 @@ import { Sequelize } from "sequelize";
 import { DB_CONFIG } from "./config/config.js";
 
 //conexão com o banco
-export const connection = new Sequelize(DB_CONFIG.db, DB_CONFIG.user, DB_CONFIG.pass, {
-    host: DB_CONFIG.host,
-    dialect: DB_CONFIG.dialect,
+
+// postgres://admin:gWWj5JaS4RXygrqJDeCpoLNRPfuL9l9p@dpg-clp43r946foc73a6la8g-a.oregon-postgres.render.com/dc_kynk
+
+const URL_RENDER = `${DB_CONFIG.DIALECT}://${DB_CONFIG.USER}:${DB_CONFIG.PASS}@${DB_CONFIG.HOST}/${DB_CONFIG.DB}`
+console.log(`[URL_RENDER]: ${URL_RENDER}`)
+
+export const connection = new Sequelize(URL_RENDER,
+  {
     pool:{
-        max:5,
-        min:0,
-        acquire:30000,
-        idle:10000
-    }
+      max:5, // MAXIMO CONEXOES SUPORTADAS
+      min:0, // MINIMO DE CONEXÕES SUPORTADAS
+      acquire:30000, // TEMPO MAXIMO EM MS
+      idle:10000
+  },
+    dialectOptions: {
+      ssl:{
+        require:true,
+        rejectUnauthorized: false,
+      },
+      keepAlive:true
+    },
+    ssl: true,
+   
   });
 
   try {
